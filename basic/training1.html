@@ -27,6 +27,12 @@
         <p>Bilangan ini adalah {{ numberInfo }}</p>
 
         <hr>
+        <p v-text="name.toUpperCase()"></p>
+        <p v-text="number*5"></p>
+        <p v-text="link"></p>
+        <p v-html="link"></p>
+
+        <hr>
         <footer>this is footer</footer>
     </div>
 
@@ -49,7 +55,8 @@
                 qty: 3,
                 firstName: 'Rizkika',
                 lastName: 'Palindungan',
-                number: 3
+                number: 3,
+                link: '<a href="">kelas Vue JS</a>'
 
             },
             methods: {
