@@ -62,6 +62,9 @@
             <input type="text" v-model="name">
         </p>
         <p>{{ programming_language }}</p>
+        <ul>
+            <li v-for="i in programming_language">{{ i }}</li>
+        </ul>
         <div>
             <label><input type="checkbox" value="React" v-model="programming_language">React</label>
             <label><input type="checkbox" value="Vuejs" v-model="programming_language">Vuejs</label>
@@ -95,7 +98,7 @@
                 link: '<a href="">kelas Vue JS</a>',
                 imgSrc: 'images/star.png',
                 menu: 'home',
-                programming_language: []
+                programming_language: ['Golang', 'PHP', 'Python']
             },
             methods: {
                 getName: function () {
