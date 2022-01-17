@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <header>this is header</header>
+
+        <hr>
+        <p>{{ name }}</p>
+        <p>{{ name.toUpperCase() + ' String 2' }}</p>
+        <p v-once>{{ name }} (using v-once)</p> <!-- attribute to restrict any change in this element -->
+        <p>{{ 1+1 }}</p>
+        <p>{{ isActive ? 'this is true' : 'this is false' }}</p>
+        <p>{{ getName() }}</p>
+
+        <hr>
+        <p>{{ grandTotal }}</p>
+        <p>{{ fullName }}</p>
+        <p>{{ number }}</p>
+        <p>Bilangan ini adalah {{ numberInfo }}</p>
+
+        <hr>
+        <footer>this is footer</footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+    <script>
+        // const member = {
+        //     // string, number, boolean, array object
+        //     name: 'nama 1',
+        //     message: 'pesan 1',
+        //     isActive: true
+        // }
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                // string, number, boolean, array, object
+                name: 'nama 1',
+                message: 'pesan 1',
+                isActive: true,
+                qty: 3,
+                firstName: 'Rizkika',
+                lastName: 'Palindungan',
+                number: 3
+
+            },
+            methods: {
+                getName: function () {
+                    return 'Hello, ' + this.name
+                },
+                changeName: function (nameNew) {
+                    this.name = nameNew
+                    return this.getName()
+                }
+            },
+            computed: {
+                grandTotal: function () {
+                    return this.qty * 10000
+                },
+                fullName: function () {
+                    return this.firstName + ' ' + this.lastName
+                },
+                numberInfo: function () {
+                    return this.number % 2 === 0 ? 'Genap' : 'Ganjil'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
