@@ -58,6 +58,17 @@
         <button v-on:click="menu = 'blog'" v-bind:class="{active:menu === 'blog'}">Blog</button>
 
         <hr>
+        <p>
+            <input type="text" v-model="name">
+        </p>
+        <p>{{ programming_language }}</p>
+        <div>
+            <label><input type="checkbox" value="React" v-model="programming_language">React</label>
+            <label><input type="checkbox" value="Vuejs" v-model="programming_language">Vuejs</label>
+            <label><input type="checkbox" value="Angular" v-model="programming_language">Angular</label>
+        </div>
+
+        <hr>
         <footer>this is footer</footer>
     </div>
 
@@ -83,7 +94,8 @@
                 number: 1,
                 link: '<a href="">kelas Vue JS</a>',
                 imgSrc: 'images/star.png',
-                menu: 'home'
+                menu: 'home',
+                programming_language: []
             },
             methods: {
                 getName: function () {
