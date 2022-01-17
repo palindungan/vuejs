@@ -6,6 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <style>
+        .active {
+            background: salmon;
+            border: 0;
+            padding: 5px;
+        }
+    </style>
 </head>
 
 <body>
@@ -43,6 +51,11 @@
         <p>
             <button @click="onClick()">Ditekan 2</button>
         </p>
+
+        <hr>
+        <button class="active">Home</button>
+        <button>About</button>
+        <button>Blog</button>
 
         <hr>
         <footer>this is footer</footer>
