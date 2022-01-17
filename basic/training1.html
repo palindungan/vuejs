@@ -53,9 +53,9 @@
         </p>
 
         <hr>
-        <button class="active">Home</button>
-        <button>About</button>
-        <button>Blog</button>
+        <button v-on:click="menu = 'home'" v-bind:class="{active:menu === 'home'}">Home</button>
+        <button v-on:click="menu = 'about'" v-bind:class="{active:menu === 'about'}">About</button>
+        <button v-on:click="menu = 'blog'" v-bind:class="{active:menu === 'blog'}">Blog</button>
 
         <hr>
         <footer>this is footer</footer>
@@ -82,7 +82,8 @@
                 lastName: 'Palindungan',
                 number: 1,
                 link: '<a href="">kelas Vue JS</a>',
-                imgSrc: 'images/star.png'
+                imgSrc: 'images/star.png',
+                menu: 'home'
             },
             methods: {
                 getName: function () {
