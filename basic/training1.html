@@ -62,9 +62,17 @@
             <input type="text" v-model="name">
         </p>
         <p>{{ programming_language }}</p>
-        <ul>
+        <ul v-if="programming_language.length > 0">
             <li v-for="(item, index) of programming_language">{{ index+1 }} - {{ item }}</li>
         </ul>
+        <p v-show="programming_language.length > 0">Ada Dataaaa!</p>
+
+        <template v-if="programming_language.length > 0">
+            <p>baris 1</p>
+            <p>baris 2</p>
+        </template>
+
+        <p v-else>Kelas Belum Tersedia</p>
         <div>
             <label><input type="checkbox" value="React" v-model="programming_language">React</label>
             <label><input type="checkbox" value="Vuejs" v-model="programming_language">Vuejs</label>
@@ -107,7 +115,7 @@
                 link: '<a href="">kelas Vue JS</a>',
                 imgSrc: 'images/star.png',
                 menu: 'home',
-                programming_language: ['Golang', 'PHP', 'Python'],
+                programming_language: [],
                 numbers: [1, 2, 3, 4, 5]
             },
             methods: {
