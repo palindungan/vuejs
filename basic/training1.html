@@ -33,6 +33,18 @@
         <p v-html="link"></p>
 
         <hr>
+        <img v-bind:src="imgSrc" alt="Logo" width="50">
+        <img :src="imgSrc" alt="Logo" width="50">
+
+        <hr>
+        <p>
+            <button v-on:click="onClick()">Ditekan</button>
+        </p>
+        <p>
+            <button @click="onClick()">Ditekan 2</button>
+        </p>
+
+        <hr>
         <footer>this is footer</footer>
     </div>
 
@@ -55,9 +67,9 @@
                 qty: 3,
                 firstName: 'Rizkika',
                 lastName: 'Palindungan',
-                number: 3,
-                link: '<a href="">kelas Vue JS</a>'
-
+                number: 1,
+                link: '<a href="">kelas Vue JS</a>',
+                imgSrc: 'images/star.png'
             },
             methods: {
                 getName: function () {
@@ -66,6 +78,10 @@
                 changeName: function (nameNew) {
                     this.name = nameNew
                     return this.getName()
+                },
+                onClick: function () {
+                    this.number++
+                    this.imgSrc = 'images/sun.png'
                 }
             },
             computed: {
