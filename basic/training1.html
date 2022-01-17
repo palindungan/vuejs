@@ -63,13 +63,22 @@
         </p>
         <p>{{ programming_language }}</p>
         <ul>
-            <li v-for="i in programming_language">{{ i }}</li>
+            <li v-for="(item, index) of programming_language">{{ index+1 }} - {{ item }}</li>
         </ul>
         <div>
             <label><input type="checkbox" value="React" v-model="programming_language">React</label>
             <label><input type="checkbox" value="Vuejs" v-model="programming_language">Vuejs</label>
             <label><input type="checkbox" value="Angular" v-model="programming_language">Angular</label>
         </div>
+
+        <hr>
+        <ul>
+            <li v-for="i in 5" v-text="i"></li>
+        </ul>
+        <h2>Mencari bilangan genap {{ numbers }}</h2>
+        <ul>
+            <li v-for="i in filterOddNumber(numbers)" v-text="i"></li>
+        </ul>
 
         <hr>
         <footer>this is footer</footer>
@@ -98,7 +107,8 @@
                 link: '<a href="">kelas Vue JS</a>',
                 imgSrc: 'images/star.png',
                 menu: 'home',
-                programming_language: ['Golang', 'PHP', 'Python']
+                programming_language: ['Golang', 'PHP', 'Python'],
+                numbers: [1, 2, 3, 4, 5]
             },
             methods: {
                 getName: function () {
@@ -111,6 +121,11 @@
                 onClick: function () {
                     this.number++
                     this.imgSrc = 'images/sun.png'
+                },
+                filterOddNumber: function (params) {
+                    return params.filter(i => {
+                        return i % 2 == 0
+                    })
                 }
             },
             computed: {
