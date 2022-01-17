@@ -89,6 +89,16 @@
         </ul>
 
         <hr>
+        <template v-if="loginType === 'username'">
+            <label>Username</label>
+            <input placeholder="Enter your username" key="username-input">
+        </template>
+        <template v-else>
+            <label>Email</label>
+            <input placeholder="Enter your email address" key="email-input">
+        </template>
+
+        <hr>
         <footer>this is footer</footer>
     </div>
 
@@ -116,7 +126,8 @@
                 imgSrc: 'images/star.png',
                 menu: 'home',
                 programming_language: [],
-                numbers: [1, 2, 3, 4, 5]
+                numbers: [1, 2, 3, 4, 5],
+                loginType: 'username'
             },
             methods: {
                 getName: function () {
