@@ -14,12 +14,21 @@
         <header-component title="The Progressive JavaScript Framework" image="images/star.png">
         </header-component>
 
-        <main-component v-bind:program_classes="programClasses" v-bind:input_program_class="inputProgramClass"
+        <nav>
+            <router-link to="/">Home</router-link>
+            <router-link to="/about">About</router-link>
+            <router-link to="/classes">Kelas</router-link>
+        </nav>
+
+        <router-view v-bind:program_classes="programClasses" v-bind:input_program_class="inputProgramClass"
+            v-on:on_submit="onSubmit" v-on:on_destroy_class="onDestroyClass"></router-view>
+
+        <!-- <main-component v-bind:program_classes="programClasses" v-bind:input_program_class="inputProgramClass"
             v-on:on_submit="onSubmit" v-on:on_destroy_class="onDestroyClass">
         </main-component>
 
         <home-component>
-        </home-component>
+        </home-component> -->
 
         <footer-component>
             <div>disini slot</div>
@@ -28,6 +37,8 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+    <!-- <script src="https://unpkg.com/vue/dist/vue.js"></script> -->
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
     <script>
         const HomeComponent = {
             template: `
@@ -35,21 +46,13 @@
             `
         }
 
-        Vue.component('header-component', {
-            props: ['title', 'image'],
+        const AboutComponent = {
             template: `
-                <header id="header">
-                    <img v-bind:src="image" alt="{{ title }}" width="100">
-                    <h2>{{ title }}</h2>
-                </header>
-            `,
-            data: function () {
-                return {
-                }
-            }
-        })
+                <div>About</div>
+            `
+        }
 
-        Vue.component('main-component', {
+        const ClassComponent = {
             props: ['program_classes', 'input_program_class'],
             template: `
                 <main id="main">
@@ -75,7 +78,60 @@
             },
             methods: {
             }
+        }
+
+        const routes = [
+            { path: '/', component: HomeComponent },
+            { path: '/about', component: AboutComponent },
+            { path: '/classes', component: ClassComponent }
+        ]
+
+        const router = new VueRouter({
+            mode: 'history',
+            routes: routes // short for `routes: routes`
         })
+
+        Vue.component('header-component', {
+            props: ['title', 'image'],
+            template: `
+                <header id="header">
+                    <img v-bind:src="image" alt="{{ title }}" width="100">
+                    <h2>{{ title }}</h2>
+                </header>
+            `,
+            data: function () {
+                return {
+                }
+            }
+        })
+
+        // Vue.component('main-component', {
+        //     props: ['program_classes', 'input_program_class'],
+        //     template: `
+        //         <main id="main">
+        //             <hr>
+        //             <h3>Tambah Kelas</h3>
+        //             <p>
+        //                 <input type="text" v-on:keyup.enter="$emit('on_submit', $event)" v-model="input_program_class">
+        //             </p>
+
+        //             <h3 v-if="program_classes.length !== 0">Daftar Kelas</h3>
+        //             <h3 v-else>Kelas Kosong</h3>
+        //             <ul>
+        //                 <li v-for="(value, index) in program_classes">
+        //                     {{ index + 1 }}. {{ value }}
+        //                     <a href="" v-on:click.prevent="$emit('on_destroy_class', index)">hapus</a>
+        //                 </li>
+        //             </ul>
+        //         </main>
+        //     `,
+        //     data: function () {
+        //         return {
+        //         }
+        //     },
+        //     methods: {
+        //     }
+        // })
 
         Vue.component('footer-component', {
             props: [],
@@ -90,6 +146,7 @@
 
         const vm = new Vue({
             el: '#app',
+            router,
             data: {
                 programClasses: ['PHP', 'Javascript'],
                 inputProgramClass: ''
@@ -108,9 +165,9 @@
             },
             computed: {
             },
-            components: {
-                'home-component': HomeComponent
-            }
+            // components: {
+            //     'home-component': HomeComponent
+            // }
         })
     </script>
 </body>
