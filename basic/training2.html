@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+
+        <header-component title="The Progressive JavaScript Framework" image="images/star.png">
+        </header-component>
+
+        <main-component v-bind:program_classes="programClasses" v-bind:input_program_class="inputProgramClass"
+            v-on:on_submit="onSubmit" v-on:on_destroy_class="onDestroyClass">
+        </main-component>
+
+        <home-component>
+        </home-component>
+
+        <footer-component>
+            <div>disini slot</div>
+        </footer-component>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+    <script>
+        const HomeComponent = {
+            template: `
+                <div>Home</div>
+            `
+        }
+
+        Vue.component('header-component', {
+            props: ['title', 'image'],
+            template: `
+                <header id="header">
+                    <img v-bind:src="image" alt="{{ title }}" width="100">
+                    <h2>{{ title }}</h2>
+                </header>
+            `,
+            data: function () {
+                return {
+                }
+            }
+        })
+
+        Vue.component('main-component', {
+            props: ['program_classes', 'input_program_class'],
+            template: `
+                <main id="main">
+                    <hr>
+                    <h3>Tambah Kelas</h3>
+                    <p>
+                        <input type="text" v-on:keyup.enter="$emit('on_submit', $event)" v-model="input_program_class">
+                    </p>
+
+                    <h3 v-if="program_classes.length !== 0">Daftar Kelas</h3>
+                    <h3 v-else>Kelas Kosong</h3>
+                    <ul>
+                        <li v-for="(value, index) in program_classes">
+                            {{ index + 1 }}. {{ value }}
+                            <a href="" v-on:click.prevent="$emit('on_destroy_class', index)">hapus</a>
+                        </li>
+                    </ul>
+                </main>
+            `,
+            data: function () {
+                return {
+                }
+            },
+            methods: {
+            }
+        })
+
+        Vue.component('footer-component', {
+            props: [],
+            template: `
+                <footer id="footer">
+                    <hr>
+                    <slot></slot>
+                    <p>copyright 2022 - vue.js</p>
+                </footer>
+            `
+        })
+
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                programClasses: ['PHP', 'Javascript'],
+                inputProgramClass: ''
+            },
+            methods: {
+                onSubmit: function (event) {
+                    const text = event.target.value
+                    this.inputProgramClass = text
+                    this.programClasses.unshift(this.inputProgramClass)
+                    this.inputProgramClass = ''
+                },
+                onDestroyClass: function (index) {
+                    console.log(index)
+                    this.programClasses.splice(index, 1)
+                }
+            },
+            computed: {
+            },
+            components: {
+                'home-component': HomeComponent
+            }
+        })
+    </script>
+</body>
+
+</html>

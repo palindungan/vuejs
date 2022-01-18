@@ -53,9 +53,16 @@
         </p>
 
         <hr>
-        <button v-on:click="menu = 'home'" v-bind:class="{active:menu === 'home'}">Home</button>
+        <!-- <button v-on:click="menu = 'home'" v-bind:class="{active:menu === 'home'}">Home</button>
         <button v-on:click="menu = 'about'" v-bind:class="{active:menu === 'about'}">About</button>
-        <button v-on:click="menu = 'blog'" v-bind:class="{active:menu === 'blog'}">Blog</button>
+        <button v-on:click="menu = 'blog'" v-bind:class="{active:menu === 'blog'}">Blog</button> -->
+        <a href="#" v-on:click="onChangeMenu('home', $event)" v-bind:class="{active:menu === 'home'}">Home</a>
+        <a href="#" v-on:click="onChangeMenu('about', $event)" v-bind:class="{active:menu === 'about'}">About</a>
+        <a href="#" v-on:click="onChangeMenu('blog', $event)" v-bind:class="{active:menu === 'blog'}">Blog</a>
+        <br>
+        <a href="#" v-on:click.prevent="onChangeMenu('home')" v-bind:class="{active:menu === 'home'}">Home</a>
+        <a href="#" v-on:click.prevent="onChangeMenu('about')" v-bind:class="{active:menu === 'about'}">About</a>
+        <a href="#" v-on:click.prevent="onChangeMenu('blog')" v-bind:class="{active:menu === 'blog'}">Blog</a>
 
         <hr>
         <p>
@@ -80,6 +87,10 @@
         </div>
 
         <hr>
+        <h2>Form Submit</h2>
+        <input type="text" v-on:keyup.enter="onSubmit" v-model="newProgrammingLanguage">
+
+        <hr>
         <ul>
             <li v-for="i in 5" v-text="i"></li>
         </ul>
@@ -97,6 +108,28 @@
             <label>Email</label>
             <input placeholder="Enter your email address" key="email-input">
         </template>
+        <button v-on:click="changeLoginType">Change</button>
+
+        <hr>
+        <ul>
+            <li v-for="(item, index) of arrayList" :key="item.message">{{ item.message }}</li>
+        </ul>
+        <p>for single object list</p>
+        <ul>
+            <li v-for="(item, index) of singleObject">{{ item }}</li>
+        </ul>
+        <ul>
+            <template v-for="(value, name, index) in singleObject">
+                <li>{{ index }}. </li>
+                <li>{{ name }} : {{ value }}</li>
+            </template>
+        </ul>
+
+        <hr>
+        <button v-on:click="onGreet">Greeting</button>
+        <button v-on:click="onSay('HY')">HY</button>
+        <button v-on:click="onSay('OIII')">OIII</button>
+        <button v-on:click="onWarn('Form cannot be submitted yet.', $event)">Submit</button>
 
         <hr>
         <footer>this is footer</footer>
@@ -127,7 +160,17 @@
                 menu: 'home',
                 programming_language: [],
                 numbers: [1, 2, 3, 4, 5],
-                loginType: 'username'
+                loginType: 'username',
+                arrayList: [
+                    { message: 'Foo' },
+                    { message: 'Bar' }
+                ],
+                singleObject: {
+                    title: 'How to do list in vue',
+                    author: 'jane doe',
+                    publishedAt: '2016-04-10'
+                },
+                newProgrammingLanguage: ''
             },
             methods: {
                 getName: function () {
@@ -145,6 +188,43 @@
                     return params.filter(i => {
                         return i % 2 == 0
                     })
+                },
+                changeLoginType: function () {
+                    if (this.loginType === 'username') {
+                        this.loginType = 'email'
+                    } else {
+                        this.loginType = 'username'
+                    }
+
+                    return this.loginType
+                },
+                onGreet: function (event) {
+                    alert('Hello' + this.name + '!')
+                    if (event) {
+                        alert(event.target.tagName)
+                    }
+                },
+                onSay: function (message) {
+                    alert(message)
+                },
+                onWarn: function (message, event) {
+                    if (event) {
+                        event.preventDefault()
+                    }
+                    alert(message)
+                },
+                onChangeMenu: function (menu) {
+                    this.menu = menu
+                },
+                onSubmit: function (event) {
+                    // let text = event.target.value
+                    // this.programming_language.push(text)
+                    // this.programming_language.unshift(text)
+                    // event.target.value = ''
+                    // console.log(text)
+
+                    this.programming_language.unshift(this.newProgrammingLanguage)
+                    this.newProgrammingLanguage = ''
                 }
             },
             computed: {
